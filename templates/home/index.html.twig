@@ -1,43 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        
-      <title>{% block title %}Welcome!{% endblock %}</title>
+{% extends 'base.html.twig' %}
 
-<!-- META DATA -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet"/>
-
-<!-- favicon -->
-<link rel="shortcut icon" type="image/icon" href="{{ asset('assets/logo/favicon.png') }}"/>
-
-<!-- CSS files -->
-<link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/hover-min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/datepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/bootsnav.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-
-{% block stylesheets %}{% endblock %}
-
-{% block javascripts %}
-    {% block importmap %}{{ importmap('app') }}{% endblock %}
-{% endblock %}
-
-    </head>
-    <body>
-        {% block body %}
+{% block title %}TekUPTravel{% endblock %}
+       {% block body %}
         <!--[if lte IE 9]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
 			your browser</a> to improve your experience and security.</p>
@@ -1574,7 +1538,6 @@
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 
 
-        
-         {% endblock %}
-    </body>
-</html>
+
+
+{% endblock %}
