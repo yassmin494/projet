@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Controller;
 
@@ -36,5 +36,11 @@ class HomeController extends AbstractController
         return $this->render('home/offers.html.twig', [
             'offers' => $offers,
         ]);
+    }
+
+    #[Route('/payment', name: 'app_payment')]
+    public function payment(): Response    
+    {
+        return $this->render('home/payment.html.twig');
     }
 }
