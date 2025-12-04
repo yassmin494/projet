@@ -13,7 +13,7 @@
             <tr>
                 <th>Jour</th>
                 <th>Description</th>
-                <th>Image</th>
+                <th>Images</th>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +22,9 @@
                     <td>Jour {{ day.dayNumber }}</td>
                     <td>{{ day.description }}</td>
                     <td>
-                        <img src="{{ day.image }}" alt="Jour {{ day.dayNumber }}" style="width:150px;">
+                        {% for img in day.image %}
+                            <img src="{{ img }}" alt="Jour {{ day.dayNumber }}" style="width:150px; margin-right:5px;">
+                        {% endfor %}
                     </td>
                 </tr>
             {% endfor %}

@@ -3,131 +3,32 @@
 {% block title %}Travel Offers{% endblock %}
 
 {% block body %}
-<header class="top-area">
-    <div class="header-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="logo">
-                        <a href="{{ path('app_home') }}">
-                            TekUP<span>Travel</span>
-                        </a>
-                    </div><!-- /.logo-->
-                </div><!-- /.col-->
-            </div>      
-        </div>
-    </div><!-- /.header-area -->
-</header><!-- /.top-area-->
+<div class="container mt-5">
+    <h1 class="display-3 mb-5 text-center" style="font-weight: bold;">Our Travel Offers</h1>
 
-<style>
-body {
-    background: url('{{ asset('assets/images/home/banner.jpg') }}') no-repeat center center fixed;
-    background-size: cover;
-    min-height: 100vh;
-    color: white;
-}
-.page-overlay {
-    background-color: rgba(0,0,0,0.4);
-    min-height: 100vh;
-    padding: 80px 0;
-}
-.card {
-    background-color: rgba(255, 255, 255, 0.58);
-    border-radius: 15px;
-}
-</style>
-
-<div class="page-overlay">
-    <div class="container">
-        <h1 class="display-3 mb-5 text-center" style="font-weight: bold;">Our Travel Offers</h1>
-
-        <div class="offers-list">
-            {% for key, offer in offers %}
-                <div class="card mb-5 shadow-lg">
-                    <div class="row g-0 align-items-center">
-                        <div class="col-md-4">
-                            <img src="{{ offer.image }}" class="img-fluid rounded-start" alt="{{ offer.destination }}">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h2 class="card-title" style="font-size: 2rem; font-weight: bold;">{{ offer.destination }}</h2>
-                                <p class="card-text" style="font-size: 1.2rem;">
-                                    Prix: €{{ offer.price }}
-                                </p>
-                                <a href="{{ path('app_description', {'destination': offer.destination}) }}" class="btn btn-primary btn-lg">Book Now</a>
-                            </div>
-                        </div>
+    <div class="offers-list">
+        {% for key, offer in offers %}
+            <div class="card mb-5 shadow-lg">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-4">
+                        {% for img in offer.image %}
+                            <img src="{{ img }}" class="img-fluid rounded-start mb-2" alt="{{ offer.destination }}">
+                        {% endfor %}
                     </div>
-                </div>
-            {% else %}
-                <p>Aucune offre disponible pour le moment.</p>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-
-<footer class="footer-copyright">
-    <div class="container">
-        <div class="footer-content">
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="single-footer-item">
-                        <div class="footer-logo">
-                            <a href="index.html">tour<span>Nest</span></a>
-                            <p>best travel agency</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="single-footer-item">
-                        <h2>link</h2>
-                        <div class="single-footer-txt">
-                            <p><a href="#">home</a></p>
-                            <p><a href="#">destination</a></p>
-                            <p><a href="#">special packages</a></p>
-                            <p><a href="#">special offers</a></p>
-                            <p><a href="#">blog</a></p>
-                            <p><a href="#">contacts</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="single-footer-item">
-                        <h2>popular destination</h2>
-                        <div class="single-footer-txt">
-                            <p><a href="#">china</a></p>
-                            <p><a href="#">venezuela</a></p>
-                            <p><a href="#">brazil</a></p>
-                            <p><a href="#">australia</a></p>
-                            <p><a href="#">london</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="single-footer-item text-center">
-                        <h2 class="text-left">contacts</h2>
-                        <div class="single-footer-txt text-left">
-                            <p>+216 24 915 081</p>
-                            <p class="foot-email"><a href="#">info@TekUP.com</a></p>
-                            <p>Ariana ,Gazela</p>
-                            <p>Ariana, Tunis</p>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h2 class="card-title" style="font-size: 2rem; font-weight: bold;">{{ offer.destination }}</h2>
+                            <p class="card-text" style="font-size: 1.2rem;">
+                                Prix: €{{ offer.price }}
+                            </p>
+                            <a href="{{ path('app_description', {'destination': offer.destination}) }}" class="btn btn-primary btn-lg">Book Now</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="foot-icons">
-            <ul class="footer-social-links list-inline list-unstyled">
-                <li><a href="#" target="_blank" class="foot-icon-bg-1"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#" target="_blank" class="foot-icon-bg-2"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#" target="_blank" class="foot-icon-bg-3"><i class="fa fa-instagram"></i></a></li>
-            </ul>
-            <p>&copy; 2017 <a href="https://www.themesine.com">ThemeSINE</a>. All Right Reserved</p>
-        </div>
-        <div id="scroll-Top">
-            <i class="fa fa-angle-double-up return-to-top" id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
-        </div>
+        {% else %}
+            <p>Aucune offre disponible pour le moment.</p>
+        {% endfor %}
     </div>
-</footer>
+</div>
 {% endblock %}

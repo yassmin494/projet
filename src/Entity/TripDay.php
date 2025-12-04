@@ -23,11 +23,15 @@ class TripDay
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    #[ORM\Column(type: 'json')]
+    private array $image = [];
 
     #[ORM\Column]
-    private ?int $price = null;
+    private ?int $price = null;  // <-- Ajouté !
+
+    // --------------------------
+    //        GETTERS/SETTERS
+    // --------------------------
 
     public function getId(): ?int
     {
@@ -67,26 +71,25 @@ class TripDay
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage(): array
     {
-        return $this->image;
+        return $this->image ?? [];
     }
 
-    public function setImage(string $image): static
+    public function setImage(array $image): static
     {
         $this->image = $image;
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): ?int  // <-- Ajouté !
     {
         return $this->price;
     }
 
-    public function setPrice(int $price): static
+    public function setPrice(int $price): static  // <-- Ajouté !
     {
         $this->price = $price;
         return $this;
     }
 }
-
