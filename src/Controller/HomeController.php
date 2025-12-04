@@ -38,9 +38,4 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/payment', name: 'app_payment')]
-    public function payment(): Response    
-    {
-        return $this->render('home/payment.html.twig');
-    }
 }

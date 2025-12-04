@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Controller;
-
+use Symfony\Component\HttpFoundation\Request;//fatma zedethom
+use Doctrine\ORM\EntityManagerInterface;//fatma zedethom
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,22 +36,22 @@ class DestinationController extends AbstractController
         ]);
     }
 
-    // Page paiement pour une destination
-    #[Route('/payment/{destination}', name: 'payment_page')]
-    public function payment(string $destination, ManagerRegistry $doctrine): Response
-    {
-        $tripDays = $doctrine->getRepository(TripDay::class)
-            ->findBy(['destination' => $destination]);
+    // Page paiement pour une destination fatma 7atethom en commentaire
+  //  #[Route('/payment/{description}', name: 'app_payment')]
+//public function payment(string $description, Request $request, EntityManagerInterface $em): Response
+  //  {
+  //      $tripDays = $doctrine->getRepository(TripDay::class)
+   //         ->findBy(['destination' => $destination]);
 
-        if (!$tripDays) {
-            throw $this->createNotFoundException('Cette destination n’existe pas.');
-        }
+   //     if (!$tripDays) {
+    //        throw $this->createNotFoundException('Cette destination n’existe pas.');
+     //   }
 
-        $price = $tripDays[0]->getPrice();
+       // $price = $tripDays[0]->getPrice();
 
-        return $this->render('home/payment.html.twig', [
-            'destination' => $destination,
-            'price' => $price,
-        ]);
-    }
+      //  return $this->render('payme/payment.html.twig', [
+        //    'destination' => $destination,
+        //    'price' => $price,
+       // ]);
+   // }
 }

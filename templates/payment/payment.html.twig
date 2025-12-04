@@ -1,0 +1,176 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<style>
+.payment-container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    display: flex;
+    overflow: hidden;
+}
+
+.payment-left {
+    flex: 2;
+    padding: 40px;
+}
+
+.payment-right {
+    flex: 1;
+    background: #f8f9fc;
+    padding: 30px;
+    border-left: 1px solid #eee;
+}
+
+.payment-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.payment-title i {
+    font-size: 22px;
+    color: #444;
+}
+
+.form-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #555;
+}
+
+.pay-btn {
+    width: 100%;
+    margin-top: 25px;
+    background: linear-gradient(90deg,#4ccc9a,#3bbf7a);
+    color: #fff;
+    padding: 14px 0;
+    border-radius: 10px;
+    border: none;
+    font-size: 17px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.pay-btn:hover {
+    opacity: 0.9;
+}
+
+.order-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.order-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.order-item img {
+    width: 80px;
+    border-radius: 8px;
+}
+
+.total-box {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+</style>
+
+<div class="payment-container">
+
+    <!-- LEFT SIDE - PAYMENT FORM -->
+    <div class="payment-left">
+
+        <div class="payment-title">
+           <i class="fa-jelly fa-regular fa-lock"></i>Secure Payment
+        </div>
+
+        {{ form_start(form) }}
+
+        <div class="mb-3">
+            <label class="form-label">Cardholder Name</label>
+            {{ form_widget(form.fullName, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Card Number</label>
+            {{ form_widget(form.cardNumber, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="d-flex gap-3">
+            <div class="flex-fill">
+                <label class="form-label">Expiry Date</label>
+                {{ form_widget(form.expiry, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div>
+                <label class="form-label">CVV</label>
+                {{ form_widget(form.cvv, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+      
+       
+
+        <button type="submit" class="pay-btn">Pay Now</button>
+
+        {{ form_end(form) }}
+
+    </div>
+
+    <!-- RIGHT SIDE - ORDER SUMMARY -->
+    <div class="payment-right">
+
+        <div class="order-title">Order Summary</div>
+
+        <div class="order-item">
+            <img src="{{ tripDay.image }}" alt="Destination">
+            <div>
+                <strong>{{ tripDay.destination }}</strong><br>
+                <span>{{ tripDay.price }} TND</span>
+            </div>
+        </div>
+
+        <div class="total-box">
+            <span>Total:</span>
+            <span>{{ tripDay.price }} TND</span>
+        </div>
+
+    </div>
+
+</div>
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label == 'success' ? 'success' : 'danger' }} mt-3">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+<style>
+.alert {
+    border-radius: 10px;
+    font-size: 1.1rem;
+    padding: 15px 20px;
+    animation: fadeOut 4s forwards;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+</style>
+
+
+{% endblock %}

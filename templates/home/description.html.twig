@@ -31,6 +31,10 @@
 
     <p class="mt-3"><strong>Prix total : €{{ price }}</strong></p>
 
-    <a href="{{ path('payment_page', {'destination': destination}) }}" class="btn btn-success btn-lg">Payer</a>
+    
+    
+
+<a href="{{ path('app_payment', {'destination': destination}) }}" class="btn btn-success btn-lg">Payer</a>
+
 </div>
 {% endblock %}

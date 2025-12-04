@@ -1,0 +1,206 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block body %}
+<style>
+.profile-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Left: Profile Form */
+.profile-form-container {
+    flex: 2;
+}
+
+/* Two-column form inside profile form container */
+.profile-form-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-left,
+.form-right {
+    flex: 1;
+    min-width: 250px;
+}
+
+.profile-form label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.profile-form input,
+.profile-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fafafa;
+    transition: 0.3s;
+}
+
+.profile-form input:focus,
+.profile-form select:focus {
+    border-color: #3f51b5;
+    background: #fff;
+}
+
+.save-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: none;
+    color: white;
+    background: #3f51b5;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.save-btn:hover {
+    background: #303f9f;
+}
+
+/* Right Sidebar Buttons */
+.profile-sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    color: white;
+   
+}
+
+.logout-btn {
+    background: #e53935;
+}
+
+.logout-btn:hover {
+    background: #b71c1c;
+}
+
+.reservations-btn {
+    background: #4caf50;
+}
+
+.reservations-btn:hover {
+    background: #2e7d32;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.profile-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+    }
+}
+</style>
+
+<div class="profile-container">
+    <!-- Profile Form -->
+    <div class="profile-form-container">
+        <div class="profile-header">
+            <h2>My Profile</h2>
+            <p>Update your personal information</p>
+        </div>
+
+        {{ form_start(form, {attr: {class: 'profile-form'}}) }}
+        <div class="profile-form-grid">
+            <!-- Left Half of Form -->
+            <div class="form-left">
+                <div class="form-group">
+                    {{ form_label(form.firstName) }}
+                    {{ form_widget(form.firstName) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.phoneNumber) }}
+                    {{ form_widget(form.phoneNumber) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.country) }}
+                    {{ form_widget(form.country) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.dateOfBirth) }}
+                    {{ form_widget(form.dateOfBirth) }}
+                </div>
+            </div>
+
+            <!-- Right Half of Form -->
+            <div class="form-right">
+                <div class="form-group">
+                    {{ form_label(form.lastName) }}
+                    {{ form_widget(form.lastName) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.location) }}
+                    {{ form_widget(form.location) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.gender) }}
+                    {{ form_widget(form.gender) }}
+                </div>
+            </div>
+        </div>
+
+        <div style="display:none;">
+            {{ form_row(form.user) }}
+        </div>
+
+        <button type="submit" class="save-btn">Save Changes</button>
+        {{ form_end(form) }}
+   
+
+    <!-- Right Sidebar -->
+    
+    <a href="{{ path('app_old_reservations') }}" class="save-btn" style="display:block; text-align:center;">View Old Reservations</a>
+     <a href="{{ path('app_logout') }}" class="save-btn" style="display:block; text-align:center; margin-bottom: 15px;">Logout</a>
+
+ </div>
+
+</div>
+
+<style>
+/* Remove hover/transition animations for these buttons */
+.no-animation {
+    transition: none !important;
+}
+
+.no-animation:hover {
+    background: #303f9f; /* Optional: keep hover color if desired */
+}
+</style>
+{% endblock %}
