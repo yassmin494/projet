@@ -133,15 +133,19 @@
     <div class="payment-right">
 
         <div class="order-title">Order Summary</div>
-
-        <div class="order-item">
-            <img src="{{ tripDay.image }}" alt="Destination">
-            <div>
-                <strong>{{ tripDay.destination }}</strong><br>
-                <span>{{ tripDay.price }} TND</span>
-            </div>
-        </div>
-
+<div class="order-item">
+    <img src="{{ tripDay.image[0] ?? '' }}" alt="Destination">
+    <div>
+        <strong>
+            {{
+                tripDay.destination is iterable
+                    ? tripDay.destination|join(', ')
+                    : tripDay.destination
+            }}
+        </strong><br>
+        <span>{{ tripDay.price }} TND</span>
+    </div>
+</div>
         <div class="total-box">
             <span>Total:</span>
             <span>{{ tripDay.price }} TND</span>
