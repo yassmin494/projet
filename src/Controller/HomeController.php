@@ -38,4 +38,11 @@ class HomeController extends AbstractController
         ]);
     }
 
+#[Route('/admindashboard', name: 'app_admindashboard')]
+    public function admindashboard(): Response
+    {
+        return $this->render('home/admindashboard.html.twig');
+    }
+
+    
 }
