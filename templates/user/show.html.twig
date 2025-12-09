@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Details{% endblock %}
+
+{% block body %}
+
+<style>
+.user-card {
+    max-width: 650px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    padding: 30px 40px;
+}
+
+.user-card h2 {
+    font-size: 26px;
+    margin-bottom: 25px;
+    font-weight: 700;
+    color: #333;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #555;
+}
+
+.info-value {
+    font-weight: 500;
+    color: #333;
+}
+
+.action-btns {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.action-btns a,
+.action-btns form button {
+    min-width: 120px;
+}
+
+.btn-delete {
+    background: #dc3545 !important;
+    color: #fff !important;
+}
+</style>
+
+<div class="user-card">
+
+    <h2>👤 User Details</h2>
+
+    <div class="info-row">
+        <div class="info-label">ID:</div>
+        <div class="info-value">{{ user.id }}</div>
+    </div>
+
+    <div class="info-row">
+        <div class="info-label">Email:</div>
+        <div class="info-value">{{ user.email }}</div>
+    </div>
+
+    <div class="info-row">
+        <div class="info-label">Roles:</div>
+        <div class="info-value">
+            {% for role in user.roles %}
+                <span class="badge bg-primary">{{ role }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="info-row">
+        <div class="info-label">Verified:</div>
+        <div class="info-value">
+            {% if user.isVerified %}
+                <span class="badge bg-success">Yes</span>
+            {% else %}
+                <span class="badge bg-warning">No</span>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+<div class="action-btns d-flex justify-content-center">
+
+    
+
+    <a href="{{ path('app_adminclient', {'id': user.id}) }}" class="btn btn-warning">
+        Back
+    </a>
+
+    
+
+</div>
+
+{% endblock %}

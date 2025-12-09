@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Entity;
+
 use App\Entity\User;
+use App\Entity\TripDay;
 use App\Repository\PaymentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,7 +33,8 @@ class Payment
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createAt = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'payments')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?User $user = null;
 
     #[ORM\ManyToOne]
@@ -50,7 +53,6 @@ class Payment
     public function setFullName(string $fullName): static
     {
         $this->fullName = $fullName;
-
         return $this;
     }
 
@@ -62,7 +64,6 @@ class Payment
     public function setCardNumber(string $cardNumber): static
     {
         $this->cardNumber = $cardNumber;
-
         return $this;
     }
 
@@ -74,7 +75,6 @@ class Payment
     public function setExpiry(string $expiry): static
     {
         $this->expiry = $expiry;
-
         return $this;
     }
 
@@ -86,7 +86,6 @@ class Payment
     public function setCvv(?string $cvv): static
     {
         $this->cvv = $cvv;
-
         return $this;
     }
 
@@ -98,7 +97,6 @@ class Payment
     public function setAmount(?float $amount): static
     {
         $this->amount = $amount;
-
         return $this;
     }
 
@@ -110,7 +108,6 @@ class Payment
     public function setCreateAt(?\DateTimeImmutable $createAt): static
     {
         $this->createAt = $createAt;
-
         return $this;
     }
 
@@ -122,7 +119,6 @@ class Payment
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
         return $this;
     }
 
@@ -134,7 +130,6 @@ class Payment
     public function setTripDay(?TripDay $tripDay): static
     {
         $this->tripDay = $tripDay;
-
         return $this;
     }
 }

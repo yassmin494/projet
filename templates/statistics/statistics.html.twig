@@ -1,0 +1,226 @@
+{% extends 'base.html.twig' %}
+{% set active_page = 'statistics' %}
+{% block title %}Statistics{% endblock %}
+
+{% block body %}
+<style>
+/* Admin wrapper */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    background: #f5f7fa;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #1e1e2d;
+    color: #fff;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 700;
+        color: #fff;
+
+}
+.menu a {
+    color: #d1d1d1;
+    padding: 15px 25px;
+    display: block;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.menu a:hover {
+    background: #27293d;
+    color: #fff;
+}
+.menu .active {
+    background: #4c4fff;
+    color: #fff !important;
+    border-left: 4px solid #ffffff;
+}
+
+/* Content */
+.content {
+    flex: 1;
+    padding: 36px;
+}
+
+/* Header */
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+.header-row h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Cards */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 28px;
+}
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+.card .label {
+    color: #666;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.card .value {
+    font-size: 28px;
+    font-weight: 800;
+    color: #2b6df6;
+}
+
+/* Top services */
+.top-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.top-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+.top-list li:last-child {
+    border-bottom: none;
+}
+
+/* Chart block */
+.chart-card {
+    background: #fff;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+/* Helpers */
+.small-muted {
+    color: #7b8a99;
+    font-size: 13px;
+}
+</style>
+
+<div class="admin-container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+
+        <div class="menu">
+            <a href="{{ path('app_home') }}" class="{% if active_page == 'services' %}active{% endif %}">Services</a>
+            <a href="{{ path('app_home') }}" class="{% if active_page == 'reservations' %}active{% endif %}">Reservations</a>
+            <a href="{{ path('app_adminclient') }}" class="{% if active_page == 'Manage Client' %}active{% endif %}">Manage Client</a>
+            <a href="{{ path('app_statistics') }}" class="{% if active_page == 'statistics' %}active{% endif %}">Statistics</a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+
+        <div class="header-row">
+            <h1>📊 Dashboard Statistics</h1>
+            <div class="small-muted">Overview · Live data</div>
+        </div>
+
+        <!-- CARDS -->
+        <div class="cards">
+
+            <div class="card">
+                <div class="label">Number of Clients</div>
+                <div class="value">{{ nbClients }}</div>
+                <div class="small-muted">Total registered users</div>
+            </div>
+
+            <div class="card">
+                <div class="label">Number of Reservations</div>
+                <div class="value">{{ nbReservations }}</div>
+                <div class="small-muted">Payments made / bookings</div>
+            </div>
+
+            <div class="card">
+                <div class="label">Total Revenue</div>
+                <div class="value">${{ totalRevenue|number_format(2, '.', ',') }}</div>
+                <div class="small-muted">Sum of all payments</div>
+            </div>
+
+            <div class="card">
+                <div class="label">Top Services (by bookings)</div>
+                <div class="small-muted">Top 5</div>
+                <ul class="top-list" style="margin-top:12px;">
+                    {% if topServices is empty %}
+                        <li>No data yet</li>
+                    {% else %}
+                        {% for s in topServices %}
+                            <li>
+                                <span>{{ s.name }}</span>
+                                <strong>{{ s.count }}</strong>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- REVENUE CHART -->
+        <div class="chart-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div class="label">Revenue (last months)</div>
+                <div class="small-muted">Amount per month</div>
+            </div>
+            <canvas id="revenueChart" height="120"></canvas>
+        </div>
+
+    </div>
+</div>
+
+<!-- CHART.JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const labels = {{ chartLabels|json_encode|raw }};
+const data = {{ chartData|json_encode|raw }};
+
+new Chart(document.getElementById('revenueChart'), {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Revenue',
+            data: data,
+            fill: true,
+            tension: 0.3,
+            borderWidth: 2,
+            borderColor: 'rgba(43,109,246,1)',
+            backgroundColor: 'rgba(43,109,246,0.12)',
+            pointRadius: 4
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+    }
+});
+</script>
+
+{% endblock %}
