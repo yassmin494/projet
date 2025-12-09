@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Services - Admin{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Liste des Services</h1>
+    <a href="{{ path('admin_service_add') }}" class="btn btn-primary mb-3">Ajouter un service</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prix</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in services %}
+                <tr>
+                    <td>{{ service.id }}</td>
+                    <td>{{ service.name }}</td>
+                    <td>{{ service.price }} €</td>
+                    <td>
+                        {% if service.imageFilename %}
+                            <img src="{{ asset('uploads/services/' ~ service.imageFilename) }}" width="80">
+                        {% else %}
+                            Aucun
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-warning btn-sm">Modifier</a>
+                        <a href="#" class="btn btn-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Aucun service trouvé</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
