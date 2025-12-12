@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard Admin{% endblock %}
-
-{% set active_page = active_page|default('Services') %}
+{# Définir la page active pour le menu sidebar #}
+{% set active_page = active_page|default('dashboard') %}
 
 {% block body %}
 <style>
@@ -104,17 +103,20 @@
 
         <div class="menu">
             <a href="{{ path('admin_service_index') }}" class="{% if active_page == 'Services' %}active{% endif %}">Services</a>
-            <a href="{{ path('admin_reservation_index') }}" class="{% if active_page == 'Reservations' %}active{% endif %}">Réservations</a>
-            <a href="{{ path('admin_client_index') }}" class="{% if active_page == 'Clients' %}active{% endif %}">Clients</a>
-            <a href="{{ path('admin_statistics') }}" class="{% if active_page == 'Statistics' %}active{% endif %}">Statistics</a>
+            <a href="{{ path('admin_reservation_index') }}" class="{% if active_page == 'Reservations' %}active{% endif %}">Reservations</a>
+            <a href="{{ path('app_adminclient') }}" class="{% if active_page == 'Clients' %}active{% endif %}">Manage Client</a>
+            <a href="{{ path('app_statistics') }}" class="{% if active_page == 'Statistics' %}active{% endif %}">Statistics</a>
         </div>
     </div>
 
     <!-- MAIN CONTENT -->
     <div class="content">
         <h1>Dashboard Overview</h1>
-        <p>Utilisez les boutons du menu à gauche pour accéder aux services, réservations, clients et statistiques.</p>
+
+        {% block dashboard_content %}
+        <!-- Contenu spécifique à chaque page -->
+        {% endblock %}
+        
     </div>
 </div>
-
 {% endblock %}

@@ -29,12 +29,13 @@ class Service
     private ?string $imageFilename = null;
 
     #[ORM\Column(type: 'datetime')]
-    private \DateTimeInterface $createdAt;
+    private \DateTime $createdAt;
 
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTime();
     }
+   
 
     // getters & setters...
     public function getId(): ?int { return $this->id; }
@@ -46,5 +47,5 @@ class Service
     public function setPrice(string $p): self { $this->price = $p; return $this; }
     public function getImageFilename(): ?string { return $this->imageFilename; }
     public function setImageFilename(string $f): self { $this->imageFilename = $f; return $this; }
-    public function getCreatedAt(): \DateTimeInterface { return $this->createdAt; }
+    public function getCreatedAt(): \DateTime { return $this->createdAt; }
 }

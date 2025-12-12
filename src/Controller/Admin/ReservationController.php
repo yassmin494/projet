@@ -7,20 +7,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/reservation')]
-#[IsGranted('ROLE_ADMIN')]
 class ReservationController extends AbstractController
 {
     #[Route('/', name:'admin_reservation_index')]
     public function index(EntityManagerInterface $em): Response
     {
         $reservations = $em->getRepository(Reservation::class)
-            ->findBy([], ['createdAt'=>'DESC']);
+            ->findBy([], ['createdAt' => 'DESC']);
 
-        return $this->render('home/reservation_index.html.twig', [
-            'reservations' => $reservations
+        return $this->render('reservation/reservation_index.html.twig', [
+            'reservations' => $reservations,
+            'active_page' => 'Reservations', // <-- ajout pour menu actif
         ]);
     }
 

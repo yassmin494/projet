@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New User{% endblock %}
+
+{% block body %}
+<style>
+    .page-wrapper {
+        max-width: 650px;
+        margin: 50px auto;
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 35px 45px;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        font-family: "Segoe UI", sans-serif;
+        animation: fadeIn 0.4s ease;
+    }
+
+    .page-title {
+        font-size: 28px;
+        font-weight: 800;
+        text-align: center;
+        color: #333;
+        margin-bottom: 25px;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #4c6ef5, #5f87ff);
+        color: white;
+        border: none;
+        transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+        background: linear-gradient(135deg, #3a5ee8, #4b78ff);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(76,110,245,0.4);
+    }
+
+   .btn-back {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    background: #e4e7eb;
+    color: #333;
+    border: none;
+    margin-top: 12px;
+    transition: 0.3s;
+    text-align: center;
+    display: block;
+}
+
+.btn-back:hover {
+    background: #d5d8dd;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<div class="page-wrapper">
+    <div class="page-title">➕ Create a New User</div>
+
+    {{ form_start(form) }}
+
+        <div class="mb-3">
+            {{ form_row(form.email) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.roles) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.password) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.isVerified) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.userInfo) }}
+        </div>
+
+        <button class="btn-submit">Create User</button>
+
+    {{ form_end(form) }}
+
+   <a href="{{ path('app_adminclient') }}" class="btn-back">← Back to User List</a>
+
+</div>
+{% endblock %}

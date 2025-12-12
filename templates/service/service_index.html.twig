@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Liste des services</h1>
+
+<a href="{{ path('admin_service_add') }}" class="btn btn-success">Ajouter un service</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prix</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for service in services %}
+        <tr>
+            <td>{{ service.id }}</td>
+            <td>{{ service.name }}</td>
+            <td>{{ service.price }} $</td>
+            <td>
+                {% if service.imageFilename %}
+                    <img src="/uploads/services/{{ service.imageFilename }}" width="80">
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ path('admin_service_edit', {id: service.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+
+                <form method="post"
+                      action="{{ path('admin_service_delete', {id: service.id}) }}"
+                      style="display:inline-block"
+                      onsubmit="return confirm('Supprimer ?');">
+
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
+                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
