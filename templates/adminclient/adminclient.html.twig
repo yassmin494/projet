@@ -115,8 +115,8 @@
         <h2>Admin Panel</h2>
 
         <div class="menu">
-          <a href="{{ path('app_home') }}" class="{% if active_page == 'services' %}active{% endif %}">Services</a>
-<a href="{{ path('app_home') }}" class="{% if active_page == 'reservations' %}active{% endif %}">Reservations</a>
+<a href="{{ path('admin_service_index') }}" class="{% if active_page == 'services' %}active{% endif %}">Services</a>
+<a href="{{ path('admin_reservation_index') }}" class="{% if active_page == 'reservations' %}active{% endif %}">Reservations</a>
 <a href="{{ path('app_adminclient') }}" class="{% if active_page == 'Manage Client' %}active{% endif %}">Manage Client</a>
 <a href="{{ path('app_statistics') }}" class="{% if active_page == 'statistics' %}active{% endif %}">Statistics</a>
 
@@ -129,12 +129,12 @@
 
     <div class="admin-title">📋  Client Management</div>
 
-    <!-- Search Bar -->
+    <!-- Search Bar
     <form method="get" class="mb-4">
     <div style="display: flex; gap: 10px; max-width: 350px;">
     <input type="text" name="q" class="form-control" placeholder="Rechercher un client...">
     <button class="btn btn-primary" type="submit">Search</button>
-</div>
+</div> -->
 
     </form>
 

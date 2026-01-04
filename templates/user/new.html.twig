@@ -1,9 +1,99 @@
 {% extends 'base.html.twig' %}
-
+{% set active_page = 'Manage Client' %}
 {% block title %}Create New User{% endblock %}
 
 {% block body %}
 <style>
+
+/* Layout */
+.admin-container {
+    display: flex;
+    height: 100vh;
+    background: #f5f7fa;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #1e1e2d;
+    color: #fff;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h2 {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 30px;
+    font-weight: 700;
+     color: #fff;
+}
+
+.menu a {
+    color: #d1d1d1;
+    padding: 15px 25px;
+    display: block;
+    font-size: 16px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    background: #27293d;
+    color: #fff;
+}
+
+/* Active link */
+.menu .active {
+    background: #4c4fff;
+    color: #fff !important;
+    border-left: 4px solid #ffffff;
+}
+
+/* Dashboard Content */
+.content {
+    flex: 1;
+    padding: 40px;
+}
+
+.content h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 16px;
+    color: #555;
+}
+
     .page-wrapper {
         max-width: 650px;
         margin: 50px auto;
@@ -69,9 +159,24 @@
         to { opacity: 1; transform: translateY(0); }
     }
 </style>
+<div class="admin-container">
+
+    <!-- LEFT SIDEBAR -->
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+
+        <div class="menu">
+<a href="{{ path('admin_service_index') }}" class="{% if active_page == 'services' %}active{% endif %}">Services</a>
+<a href="{{ path('admin_reservation_index') }}" class="{% if active_page == 'reservations' %}active{% endif %}">Reservations</a>
+<a href="{{ path('app_adminclient') }}" class="{% if active_page == 'Manage Client' %}active{% endif %}">Manage Client</a>
+<a href="{{ path('app_statistics') }}" class="{% if active_page == 'statistics' %}active{% endif %}">Statistics</a>
+
+        </div>
+    </div>
 
 <div class="page-wrapper">
-    <div class="page-title">➕ Create a New User</div>
+    <div class="page-title"><i class="fa fa-user-circle"></i>
+ Create a New User</div>
 
     {{ form_start(form) }}
 

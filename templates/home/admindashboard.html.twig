@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{# Définir la page active pour le menu sidebar #}
 {% set active_page = active_page|default('dashboard') %}
 
 {% block body %}
 <style>
-/* Layout */
+/* ===== Layout ===== */
 .admin-container {
     display: flex;
     height: 100vh;
@@ -13,7 +12,7 @@
     font-family: "Segoe UI", sans-serif;
 }
 
-/* Sidebar */
+/* ===== Sidebar ===== */
 .sidebar {
     width: 250px;
     background: #1e1e2d;
@@ -45,14 +44,13 @@
     color: #fff;
 }
 
-/* Active link */
 .menu .active {
     background: #4c4fff;
     color: #fff !important;
     border-left: 4px solid #ffffff;
 }
 
-/* Dashboard Content */
+/* ===== Dashboard Content ===== */
 .content {
     flex: 1;
     padding: 40px;
@@ -64,35 +62,50 @@
     font-weight: 700;
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-    margin-top: 25px;
-}
-
-.card {
+.admin-info {
     background: #fff;
-    padding: 25px;
+    padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-    text-align: center;
-    transition: 0.3s;
+    margin-bottom: 30px;
 }
 
-.card:hover {
-    transform: translateY(-4px);
-}
-
-.card h3 {
-    font-size: 20px;
+.admin-info h3 {
     margin-bottom: 10px;
 }
 
-.card p {
-    font-size: 16px;
+.admin-info p {
+    color: #555;
+    margin: 4px 0;
+}
+
+/**/
+
+.admin-info {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-details h3 {
+    margin-bottom: 10px;
+}
+
+.admin-details p {
+    margin: 4px 0;
     color: #555;
 }
+
+.admin-icon {
+    font-size: 80px;
+    color: #4c6ef5;
+}
+
 </style>
 
 <div class="admin-container">
@@ -112,11 +125,27 @@
     <!-- MAIN CONTENT -->
     <div class="content">
         <h1>Dashboard Overview</h1>
-
-        {% block dashboard_content %}
-        <!-- Contenu spécifique à chaque page -->
-        {% endblock %}
-        
+{% if app.user %}
+    <div class="admin-info">
+        <h3>Admin Info</h3>
+        {# Use email as identifier #}
+        <p><strong>Email:</strong> {{ app.user.email }}</p>
+        {# Show roles as comma-separated #}
+        <p><strong>Roles:</strong> {{ app.user.roles|join(', ') }}</p>
+        {# Optionally, show if the account is verified #}
+        <p><strong>Verified:</strong> {{ app.user.isVerified ? 'Yes' : 'No' }}</p>
+        {# If you have a related UserInfo entity with firstName and lastName #}
+        {% if app.user.userInfo %}
+            <p><strong>Name:</strong> {{ app.user.userInfo.firstName }} {{ app.user.userInfo.lastName }}</p>
+        {% endif %}
+ <div class="admin-icon" style="font-size: 80px; color: #4c6ef5;">
+            <i class="fa fa-user-circle"></i>
+        </div>
     </div>
+    <!-- Icon on the right -->
+       
+{% else %}
+    <p>No admin is currently logged in.</p>
+{% endif %}
 </div>
 {% endblock %}

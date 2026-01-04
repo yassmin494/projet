@@ -127,10 +127,10 @@
         <h2>Admin Panel</h2>
 
         <div class="menu">
-            <a href="{{ path('app_home') }}" class="{% if active_page == 'services' %}active{% endif %}">Services</a>
-            <a href="{{ path('app_home') }}" class="{% if active_page == 'reservations' %}active{% endif %}">Reservations</a>
-            <a href="{{ path('app_adminclient') }}" class="{% if active_page == 'Manage Client' %}active{% endif %}">Manage Client</a>
-            <a href="{{ path('app_statistics') }}" class="{% if active_page == 'statistics' %}active{% endif %}">Statistics</a>
+           <a href="{{ path('admin_service_index') }}" class="{% if active_page == 'services' %}active{% endif %}">Services</a>
+<a href="{{ path('admin_reservation_index') }}" class="{% if active_page == 'reservations' %}active{% endif %}">Reservations</a>
+<a href="{{ path('app_adminclient') }}" class="{% if active_page == 'Manage Client' %}active{% endif %}">Manage Client</a>
+<a href="{{ path('app_statistics') }}" class="{% if active_page == 'statistics' %}active{% endif %}">Statistics</a>
         </div>
     </div>
 

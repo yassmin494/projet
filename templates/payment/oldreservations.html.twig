@@ -3,34 +3,116 @@
 {% block title %}My Reservations{% endblock %}
 
 {% block body %}
-<h2>My Previous Reservations</h2>
+<style>
+body {
+    background: linear-gradient(135deg, #6e78d5ff, #eee1e5ff);
+    min-height: 100vh;
+}
 
-{% if payments is empty %}
-    <p>You have no previous reservations.</p>
-{% else %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Destination</th>
-                <th>Amount</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
+.reservations-container {
+    max-width: 1000px;
+    margin: 80px auto;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border-radius: 22px;
+    padding: 40px;
+    color: white;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+}
+
+.reservations-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.reservations-header h2 {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.reservations-header p {
+    opacity: 0.85;
+}
+
+.reservation-card {
+    background: rgba(255,255,255,0.18);
+    border-radius: 18px;
+    padding: 25px 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: none;
+}
+
+.reservation-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.destination {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.date {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.amount {
+    font-size: 22px;
+    font-weight: 700;
+    color: #efeee3ff;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    opacity: 0.9;
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+</style>
+
+<div class="reservations-container">
+    <div class="reservations-header">
+        <h2>My Reservations</h2>
+        <p>Your travel history at a glance</p>
+    </div>
+
+    {% if payments is empty %}
+        <div class="empty-state">
+            <i class="fa fa-suitcase"></i>
+            <p>You haven’t made any reservations yet.</p>
+        </div>
+    {% else %}
         {% for payment in payments %}
-            <tr>
-                <td>
-                    {{
-                        payment.tripDay.destination is iterable
-                            ? payment.tripDay.destination|join(', ')
-                            : payment.tripDay.destination
-                    }}
-                </td>
-                <td>{{ payment.amount }} TND</td>
-                <td>{{ payment.createAt|date('Y-m-d H:i') }}</td>
-            </tr>
+            <div class="reservation-card">
+                <div class="reservation-info">
+                    <div class="destination">
+                        {{
+                            payment.tripDay.destination is iterable
+                                ? payment.tripDay.destination|join(', ')
+                                : payment.tripDay.destination
+                        }}
+                    </div>
+                    <div class="date">
+                        <i class="fa fa-calendar"></i>
+                        {{ payment.createAt|date('d M Y • H:i') }}
+                    </div>
+                </div>
+                <div class="amount">
+                    {{ payment.amount }} TND
+                </div>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
-{% endif %}
+    {% endif %}
+</div>
 {% endblock %}

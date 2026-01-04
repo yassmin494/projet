@@ -44,7 +44,7 @@ public function payment(string $destination, EntityManagerInterface $em, Request
 
         } catch (\Exception $e) {
 
-            $this->addFlash('error', 'Le paiement a échoué. Veuillez réessayer.');
+            
             return $this->redirectToRoute('app_payment', ['destination' => $destination]);
         }
     }

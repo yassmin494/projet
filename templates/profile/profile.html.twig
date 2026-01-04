@@ -4,175 +4,173 @@
 
 {% block body %}
 <style>
+body {
+    background: linear-gradient(135deg, #5252bdff, #ebeaf2ff);
+    min-height: 100vh;
+}
+
+/* Glass Container */
 .profile-container {
-    max-width: 1000px;
-    margin: 40px auto;
-    background: #fff;
-    padding: 35px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    font-family: 'Segoe UI', sans-serif;
+    max-width: 1100px;
+    margin: 80px auto;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(14px);
+    padding: 45px;
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+    color: white;
     display: flex;
-    gap: 30px;
+    gap: 35px;
     flex-wrap: wrap;
 }
 
-/* Left: Profile Form */
+/* Left Form */
 .profile-form-container {
     flex: 2;
 }
 
-/* Two-column form inside profile form container */
+/* Header */
+.profile-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.profile-header h2 {
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.profile-header p {
+    opacity: 0.85;
+}
+
+/* Grid */
 .profile-form-grid {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     flex-wrap: wrap;
 }
 
 .form-left,
 .form-right {
     flex: 1;
-    min-width: 250px;
+    min-width: 260px;
 }
 
+/* Labels */
 .profile-form label {
     font-weight: 600;
     margin-bottom: 6px;
     display: block;
 }
 
+/* Inputs */
 .profile-form input,
 .profile-form select {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background: #fafafa;
-    transition: 0.3s;
-}
-
-.profile-form input:focus,
-.profile-form select:focus {
-    border-color: #3f51b5;
-    background: #fff;
-}
-
-.save-btn {
-    margin-top: 20px;
-    width: 100%;
     padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: rgba(241, 227, 227, 0.85);
+    font-size: 15px;
+}
+
+/* Buttons – STATIC */
+.save-btn {
+    margin-top: 25px;
+    width: 100%;
+    padding: 16px;
     font-size: 16px;
+    border-radius: 14px;
     border: none;
     color: white;
     background: #3f51b5;
-    border-radius: 12px;
     cursor: pointer;
-    transition: 0.3s;
+    text-align: center;
+    text-decoration: none;
+
+    transition: none !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
-.save-btn:hover {
-    background: #303f9f;
+.save-btn:hover,
+.save-btn:active,
+.save-btn:focus {
+    background: #3f51b5;
+    outline: none;
 }
 
-/* Right Sidebar Buttons */
+/* Sidebar */
 .profile-sidebar {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-top: 75px;
 }
 
-.action-btn {
-    width: 100%;
-    padding: 14px;
+/* Sidebar Buttons */
+.sidebar-btn {
+    padding: 16px;
+    border-radius: 14px;
+    text-align: center;
     font-size: 16px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    display: inline-block;
-    color: white;
-   
-}
-
-.logout-btn {
-    background: #e53935;
-}
-
-.logout-btn:hover {
-    background: #b71c1c;
-}
-
-.reservations-btn {
-    background: #4caf50;
-}
-
-.reservations-btn:hover {
-    background: #2e7d32;
-}
-
-.profile-header {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.profile-header h2 {
-    font-size: 28px;
     font-weight: 600;
+    text-decoration: none;
+    color: white;
+
+    transition: none !important;
+    transform: none !important;
 }
 
+.sidebar-btn.reservations {
+    background: #6e9e71ff;
+}
+
+.sidebar-btn.logout {
+    background: #da3a40ff;
+}
+
+.sidebar-btn:hover,
+.sidebar-btn:active {
+    opacity: 0.95;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
     .profile-container {
         flex-direction: column;
+    }
+
+    .profile-sidebar {
+        margin-top: 30px;
     }
 }
 </style>
 
 <div class="profile-container">
-    <!-- Profile Form -->
+    <!-- Form -->
     <div class="profile-form-container">
         <div class="profile-header">
             <h2>My Profile</h2>
-            <p>Update your personal information</p>
+            <p>Manage your personal information</p>
         </div>
 
         {{ form_start(form, {attr: {class: 'profile-form'}}) }}
+
         <div class="profile-form-grid">
-            <!-- Left Half of Form -->
             <div class="form-left">
-                <div class="form-group">
-                    {{ form_label(form.firstName) }}
-                    {{ form_widget(form.firstName) }}
-                </div>
-                <div class="form-group">
-                    {{ form_label(form.phoneNumber) }}
-                    {{ form_widget(form.phoneNumber) }}
-                </div>
-                <div class="form-group">
-                    {{ form_label(form.country) }}
-                    {{ form_widget(form.country) }}
-                </div>
-                <div class="form-group">
-                    {{ form_label(form.dateOfBirth) }}
-                    {{ form_widget(form.dateOfBirth) }}
-                </div>
+                {{ form_row(form.firstName) }}
+                {{ form_row(form.phoneNumber) }}
+                {{ form_row(form.country) }}
+                {{ form_row(form.dateOfBirth) }}
             </div>
 
-            <!-- Right Half of Form -->
             <div class="form-right">
-                <div class="form-group">
-                    {{ form_label(form.lastName) }}
-                    {{ form_widget(form.lastName) }}
-                </div>
-                <div class="form-group">
-                    {{ form_label(form.location) }}
-                    {{ form_widget(form.location) }}
-                </div>
-                <div class="form-group">
-                    {{ form_label(form.gender) }}
-                    {{ form_widget(form.gender) }}
-                </div>
+                {{ form_row(form.lastName) }}
+                {{ form_row(form.location) }}
+                {{ form_row(form.gender) }}
             </div>
         </div>
 
@@ -181,26 +179,18 @@
         </div>
 
         <button type="submit" class="save-btn">Save Changes</button>
+
         {{ form_end(form) }}
-   
+    </div>
 
-    <!-- Right Sidebar -->
-    
-    <a href="{{ path('app_old_reservations') }}" class="save-btn" style="display:block; text-align:center;">View Old Reservations</a>
-     <a href="{{ path('app_logout') }}" class="save-btn" style="display:block; text-align:center; margin-bottom: 15px;">Logout</a>
-
- </div>
-
+    <!-- Sidebar -->
+    <div class="profile-sidebar">
+        <a href="{{ path('app_old_reservations') }}" class="sidebar-btn reservations">
+            My Reservations
+        </a>
+        <a href="{{ path('app_logout') }}" class="sidebar-btn logout">
+            Logout
+        </a>
+    </div>
 </div>
-
-<style>
-/* Remove hover/transition animations for these buttons */
-.no-animation {
-    transition: none !important;
-}
-
-.no-animation:hover {
-    background: #303f9f; /* Optional: keep hover color if desired */
-}
-</style>
 {% endblock %}
